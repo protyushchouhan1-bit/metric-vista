@@ -1,82 +1,94 @@
-# Project NEXUS — Enterprise Intelligence, Data Quality & Decision Support Platform (V2.0)
+# METRIC VISTA — Automated Data Cleaning, Multi-Department Analytics & Q&A Studio
 
-[![CI Verification](https://img.shields.io/badge/CI-Tests%20%2B%20Security%20%2B%20AI%20Eval%20%2B%20Ruff-06B6D4)](#reproduce-every-claim-in-one-command)
+[Live Demo](https://www.google.com/search?q=https%3A%2F%2Fmetric-vista.onrender.com)
+[Python](https://www.google.com/search?q=https%3A%2F%2Fwww.python.org%2F)
+[FastAPI](https://www.google.com/search?q=https%3A%2F%2Ffastapi.tiangolo.com%2F)
 
-**Project NEXUS** is an adaptive, AI-assisted BI Semantic Layer, 7-Dimension Data Quality Evaluator, Deterministic DuckDB/Parquet Analytics Engine, and Evidence-Based Business Analyst built to eliminate spreadsheet fragmentation in SMEs without AI math hallucination.
+**METRIC VISTA** turns messy Excel (`.xlsx`, `.xls`) and CSV exports—up to **1,00,000 rows**—into clean, verified executive dashboards and plain-English answers in seconds, without writing a single formula or SQL query.
 
-## Architecture Diagram (Single Unified Frontend + Modular Monolith)
+Built over a focused two-week sprint to solve the everyday spreadsheet headaches faced by founders, analysts, and department managers.
 
-```
-[Unified Dark-Neon UI: web_app/index.html (Zero JS Math)]
-                        │ HTTPS / JSON (/api/v1/)
-                        ▼
-[FastAPI Gateway — Verified JWT Only · Locked CORS · Read-Only Demo Mode]
-        ├── core/ (Framework-Agnostic Python Analytical Core)
-        │     ├── ingestion.py       (15 MB / 100k cap, zip-bomb check, Header & Grand Total scanner, Parquet)
-        │     ├── profiler.py        (Grain discovery + 7-Dim Quality + Mixed Currency ₹/$/€/£/INR/USD/EUR/GBP)
-        │     ├── semantic_mapper.py (Tier-1 Rules + Tier-2 Metadata-Only AI Classifier + Tier-3 Confirmation)
-        │     ├── kpi_engine.py      (YAML 15-Field KPI Registry, Price/Volume/Mix Waterfall, Pareto 80/20)
-        │     └── ai_analyst.py      (Real Two-Stage LLM JSON AST + Narrative + Session-Only Key + Demo Cache)
-        ├── kpis/*.yaml              (Sales, Finance, Marketing, HR, Supply Chain contracts)
-        └── Storage                  (Immutable Raw + Columnar Parquet + SQLite Metadata; PG RLS in Phase 2)
-```
+---
 
-## How AI Hallucination Is Prevented
-1. **Zero LLM Arithmetic**: Python/DuckDB executes 100% of sums, distinct counts, margins, Pareto rankings, and Price/Volume/Mix waterfalls.
-2. **Two-Stage Grounded Pipeline**: When a live Gemini key is supplied via session-only `X-Session-AI-Key` (configurable `GEMINI_MODEL`, default `gemini-2.0-flash`), Gemini receives ONLY the semantic schema and question to produce a **Structured JSON Query Plan (`QueryPlanAST`)**. Pydantic validates the allowlist, Parquet executes it deterministically, and Gemini explains ONLY the verified output.
-3. **Transparent Modes & Audit Panel**: Every AI answer displays its exact `execution_mode` (`live_llm`, `rule_based_offline`, `cached_demo`, `cached_ttl`) and an expandable **"See the Query & Numbers"** audit panel.
-4. **Honest Missing-Data Rules**: Missing required columns mark KPIs as `Not Calculable` (never `0`), and missing `quantity`/`unit_price` marks the Price/Volume/Mix waterfall as `Requires Additional Information`.
+## What Problem It Solves
 
-## Independently Recalculated Excel-vs-NEXUS Parity Table
-All 13 Excel formulas in `sample_data/benchmarks/nexus_excel_ground_truth.xlsx` were recalculated independently via **LibreOffice Calc headless** (`nexus_excel_recalculated_libreoffice.xlsx`) and verified to 2 decimal places by `tests/test_nexus_6_layers.py`:
+Growing teams lose hours every week cleaning the exact same raw exports:
+- Blank or half-empty columns cluttering every sheet
+- Grand-total rows accidentally mixed into raw data
+- Inconsistent casing (such as `James` vs. `james` or `MATT` vs. `Matt`) quietly splitting totals
+- Mixed currency symbols (`₹`, `$`, `€`, `£`, `INR`, `USD`) breaking numeric columns
+- Heavy BI tools that require manual data modeling before anyone can see a single chart
 
-| Domain | KPI Code | KPI Name | LibreOffice Excel Formula | NEXUS Output | Delta |
-|---|---|---|---:|---:|---:|
-| Sales | `SALES_TOTAL_REVENUE` | Total Revenue | 3,784,295.00 | 3,784,295.00 | 0.00 |
-| Sales | `SALES_DISTINCT_ORDERS` | Distinct Orders | 250.00 | 250.00 | 0.00 |
-| Sales | `SALES_AOV` | Average Order Value (AOV) | 15,137.18 | 15,137.18 | 0.00 |
-| Sales | `SALES_UNITS_SOLD` | Total Units Sold | 1,281.00 | 1,281.00 | 0.00 |
-| Sales | `SALES_ASP` | Average Selling Price (ASP) | 2,954.17 | 2,954.17 | 0.00 |
-| Sales | `SALES_GROSS_PROFIT` | Gross Profit | 1,740,975.00 | 1,740,975.00 | 0.00 |
-| Sales | `SALES_GROSS_MARGIN_PCT` | Gross Margin % | 46.01 | 46.01 | 0.00 |
-| Finance | `FIN_TOTAL_REVENUE` | P&L Revenue | 15,810,621.72 | 15,810,621.72 | 0.00 |
-| Finance | `FIN_COGS` | P&L COGS | 6,845,643.61 | 6,845,643.61 | 0.00 |
-| Finance | `FIN_OPEX` | P&L OpEx | 6,828,261.49 | 6,828,261.49 | 0.00 |
-| Finance | `FIN_GROSS_PROFIT` | P&L Gross Profit | 8,964,978.11 | 8,964,978.11 | 0.00 |
-| Finance | `FIN_OPERATING_PROFIT` | Operating Profit | 2,136,716.62 | 2,136,716.62 | 0.00 |
-| Finance | `FIN_OPERATING_MARGIN_PCT` | Operating Margin % | 13.51 | 13.51 | 0.00 |
+**METRIC VISTA** automates cleaning, column mapping, and quality scoring right during upload, then adapts its charts automatically to whatever dataset you drop in.
 
-## 35-Question Golden AI Evaluation Suite (`tests/eval_ai_golden.py`)
-- **Slice Plan Validity Rate (25 slice questions)**: **100.0%**
-- **Headline KPI Grounding Rate (5 executive questions)**: **100.0%**
-- **Adversarial SQL/Prompt-Injection Rejection Rate (5 attack prompts)**: **100.0%**
-- **Numbers-Match-Engine Rate**: **100.0%**
+---
 
-## Honest Multi-Tier Performance Benchmarks
-Measured locally across 3 iterations per tier (full ingest → Parquet → profile → semantic map → KPI suite):
+## Core Capabilities
 
-| Tier | Dataset Shape | p50 Latency | p95 Latency | Peak RSS Memory |
-|---|---|---:|---:|---:|
-| **Small** | 1,000 × 12 | 0.09s | 0.11s | 170.3 MB |
-| **Medium** | 25,000 × 12 | 0.55s | 0.57s | 267.3 MB |
-| **Max MVP** | 100,000 × 12 | 1.87s | 1.91s | 387.9 MB |
+- **Live Upload Cleaning & Quality Audit:** Filters blank columns, repairs nulls, normalizes inconsistent name casing, strips duplicate and grand-total rows, and scores 7 data-health dimensions live on screen.
+- **Priority-First Overview Map:** Ranks your most important metrics first and connects them visually to regional, product, and channel drivers with click-to-filter support.
+- **Comprehensive Executive Dashboard (12 Animated Charts):** Growth & Moving Average, Share Donut, Price/Volume/Mix Waterfall, 80/20 Pareto, Ranked Leaderboard, Cumulative Running Total, Period-over-Period Momentum, Leaders vs. Laggards, Distribution Bands, Concentration Bubble, Polar Balance, and Strength Radar—all formatted with compact axis ticks (`K`, `L`, `Cr`) so labels never overlap.
+- **4 Plain-English Department Hubs (6 Charts Each):**
+  - **Finance:** Budget vs. Actual, Monthly Money In vs. Out, Revenue/COGS/OpEx Mix, Quarterly Profit & Margin %, Budget Variance, Account Weight Balance
+  - **Supply Chain:** Warehouse COGS, On-Time vs. Late Deliveries, Supplier Share, Lead Time, Defect Rate %, On-Hand vs. Avg Inventory + EOQ
+  - **Marketing:** Ad Spend vs. Revenue, ROAS by Platform, Budget Share, Conversion Funnel, CAC, Monthly Revenue & Conversions
+  - **HR & People:** Active vs. Exited Staff, Hiring Speed, Workforce Share, Attendance %, Retention Radar, Quarterly Hiring Momentum
+- **Always-On Backend Gemini Q&A:** FastAPI reads `GEMINI_API_KEY` directly from server environment variables (with a clean offline fallback), so end users ask plain-English questions without ever being prompted for API keys.
 
-## One Real Analytical Insight Found in the Benchmark Dataset
-In `acme_retail_sales.csv` (430 line-item rows spanning 250 distinct orders), a naive row-count AOV calculation (`SUM(revenue) / COUNT(*)`) would report **₹8,800.69**, understating true Average Order Value by **41.9%** compared to grain-aware `COUNT(DISTINCT order_id)` (**₹15,137.18**). Enforcing mandatory dataset grain confirmation (`line_item` vs `order`) prevents this silent financial distortion before any chart is published.
+---
 
-## Reproduce Every Claim in One Command
+## Verified Benchmarks & Quality Checks
+
+| Dataset Scale | Ingest + Profile + KPI Time | Peak Memory (RSS) |
+| :--- | :---: | :---: |
+| Small (1,000 × 12) | 0.09s | 170.3 MB |
+| Medium (25,000 × 12) | 0.55s | 267.3 MB |
+| Max Target (1,00,000 × 12) | 2.31s | 290.8 MB |
+
+- **Excel Parity:** 13/13 core Sales & Finance KPIs verified against LibreOffice-recalculated Excel formulas with **0.00 delta**.
+- **Automated Test Suite:** 13/13 security, currency-parsing, cross-filtering, and API tests passing (`python tests/test_nexus_6_layers.py`).
+- **Golden AI Evaluation:** 100% plan validity, adversarial rejection, and verified number accuracy across 35 benchmark questions (`python tests/eval_ai_golden.py`).
+
+---
+
+## Quick Start (Localhost)
+
 ```bash
+git clone https://github.com/protyushchouhan1-bit/metric-vista.git
+cd metric-vista
+python -m venv .venv
+# Windows: .venv\Scripts\activate   |   macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-python3 -m unittest discover -s tests -v && python3 tests/eval_ai_golden.py
+cp .env.example .env   # Add your GEMINI_API_KEY inside .env
+python server.py
 ```
 
-## Run Locally (`http://localhost:8000`)
-- **Windows**: Double-click `run_local.bat`
-- **macOS / Linux**: `./run_local.sh`
-- **Manual**: `python3 server.py` → opens **`http://localhost:8000`** (API Swagger docs at **`http://localhost:8000/docs`**).
+Open `http://localhost:8000` in your browser (Swagger API docs at `http://localhost:8000/docs` and Gemini status at `http://localhost:8000/api/v1/ai-status`).
 
-## What I Learned & Known Limitations
-- **One calculator beats two**: Wiring the unified dark-neon frontend (`web_app/index.html`) directly to `POST /api/v1/dashboards/{id}/query` eliminated frontend/backend calculation drift; the prototype React folder was moved to `future/react_frontend/`.
-- **Security is binary**: Trusting client-supplied `X-Org-Id` headers or allowing writes in Demo Mode defeats multi-tenancy; every route now enforces verified JWT claims and read-only demo viewer permissions.
-- **Formulas must be recalculated independently**: Running LibreOffice Calc headless caught a `UNIQUE()` compatibility bug in Excel formulas and verified true independent 2-decimal parity.
-- See [`LIMITATIONS.md`](LIMITATIONS.md), [`docs/PHASE2_ROADMAP.md`](docs/PHASE2_ROADMAP.md), and [`handbook/`](handbook/01_EXPLAIN_LIKE_IM_5_AND_MAIN_IDEA.md) for full details.
+---
+
+## One-Click Cloud Deployment (Render)
+
+This repository includes `render.yaml` and `Procfile` pre-configured for Render:
+1. Connect `protyushchouhan1-bit/metric-vista` on [Render](https://www.google.com/search?q=https%3A%2F%2Fdashboard.render.com) via **New + → Blueprint**.
+2. Paste your `GEMINI_API_KEY` into Render's Environment Variables panel.
+3. Click **Deploy Blueprint**—Render builds the sample data and serves the live dashboard via `uvicorn server:app --host 0.0.0.0 --port $PORT`.
+
+---
+
+## Repository Structure
+
+```text
+metric-vista/
+├── server.py               # Unified dashboard + FastAPI entrypoint (local & Render)
+├── render.yaml             # Render Blueprint deployment config
+├── Procfile                # Process file for cloud hosting
+├── requirements.txt        # Python dependencies
+├── web_app/index.html      # METRIC VISTA interactive frontend
+├── backend/                # FastAPI routes, JWT auth & SQLite metadata store
+├── core/                   # Ingestion, cleaning, profiler, KPI engine & Gemini analyst
+├── kpis/                   # YAML KPI definitions (Sales, Finance, SCM, Marketing, HR)
+├── sample_data/            # Demo workspaces, adversarial test sets & Excel benchmarks
+├── tests/                  # Automated test suite & 35-question Golden AI eval
+└── docs/ & handbook/       # Architecture docs and technical walkthroughs
+```
