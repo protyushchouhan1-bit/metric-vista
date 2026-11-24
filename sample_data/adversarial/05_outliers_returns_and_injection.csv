@@ -1,0 +1,181 @@
+line_id,order_id,order_date,customer_id,region,channel,product_category,product_name,quantity,unit_price,discount_amount,revenue,cogs,order_status
+LN-00001,ORD-10001,2025-05-03,CUST-0073,East,Partner,Accessories,Leather Backpack,4,3600,0.0,14400.0,6600,Cancelled
+LN-00002,ORD-10001,2025-05-03,CUST-0073,East,Partner,Electronics,Wireless Earbuds,5,2200,1100.0,9900.0,5500,Cancelled
+LN-00003,ORD-10002,2026-01-03,CUST-0068,West,Online,Accessories,Leather Backpack,3,3600,0.0,10800.0,4950,Cancelled
+LN-00004,ORD-10003,2025-06-06,CUST-0088,West,Online,Accessories,USB-C Hub,3,1500,225.0,4275.0,1860,Cancelled
+LN-00005,ORD-10003,2025-06-06,CUST-0088,West,Online,Electronics,Smart Watch Pro,3,4500,2025.0,11475.0,7800,Cancelled
+LN-00006,ORD-10004,2025-04-24,CUST-0081,West,Partner,Electronics,Wireless Earbuds,4,2200,0.0,8800.0,4400,Cancelled
+LN-00007,ORD-10004,2025-04-24,CUST-0081,West,Partner,Electronics,Wireless Earbuds,3,2200,990.0,5610.0,3300,Cancelled
+LN-00008,ORD-10005,2025-12-04,CUST-0074,West,Direct,Apparel,Performance Jacket,1,3200,160.0,3040.0,1400,Cancelled
+LN-00009,ORD-10006,2025-05-27,CUST-0070,East,Marketplace,Apparel,Merino Tee,3,1200,0.0,3600.0,1440,Cancelled
+LN-00010,ORD-10006,2025-05-27,CUST-0070,East,Marketplace,Accessories,Leather Backpack,1,3600,180.0,3420.0,1650,Cancelled
+LN-00011,ORD-10007,2026-01-16,CUST-0018,South,Direct,Apparel,Performance Jacket,2,3200,320.0,-6080.0,2800,Returned
+LN-00012,ORD-10007,2026-01-16,CUST-0018,South,Direct,Home & Living,Ceramic Lamp,3,1800,0.0,-5400.0,2460,Returned
+LN-00013,ORD-10008,2026-01-29,CUST-0060,East,Direct,Accessories,USB-C Hub,3,1500,675.0,-3825.0,1860,Returned
+LN-00014,ORD-10009,2026-02-02,CUST-0037,West,Partner,Home & Living,Ceramic Lamp,1,1800,270.0,-1530.0,820,Returned
+LN-00015,ORD-10010,2025-06-12,CUST-0076,North,Marketplace,Accessories,USB-C Hub,3,1500,450.0,-4050.0,1860,Returned
+LN-00016,ORD-10010,2025-06-12,CUST-0076,North,Marketplace,Apparel,Merino Tee,3,1200,180.0,-3420.0,1440,Returned
+LN-00017,ORD-10011,2025-10-02,CUST-0054,North,Direct,Electronics,Smart Watch Pro,4,4500,1800.0,-16200.0,10400,Returned
+LN-00018,ORD-10012,2025-09-19,CUST-0081,East,Direct,Home & Living,Ceramic Lamp,3,1800,270.0,-5130.0,2460,Returned
+LN-00019,ORD-10012,2025-09-19,CUST-0081,East,Direct,Electronics,Wireless Earbuds,4,2200,0.0,-8800.0,4400,Returned
+LN-00020,ORD-10013,2025-11-07,CUST-0003,South,Partner,Electronics,Smart Watch Pro,3,4500,2025.0,-11475.0,7800,Returned
+LN-00021,ORD-10013,2025-11-07,CUST-0003,South,Partner,Accessories,Leather Backpack,-3,3600,1080.0,6120.0,3300,Completed
+LN-00022,ORD-10013,2025-11-07,CUST-0003,South,Partner,Electronics,Wireless Earbuds,-3,2200,660.0,3740.0,2200,Completed
+LN-00023,ORD-10014,2025-07-17,CUST-0041,East,Direct,Home & Living,Ceramic Lamp,-3,1800,900.0,8100.0,4100,Completed
+LN-00024,ORD-10014,2025-07-17,CUST-0041,East,Direct,Apparel,Performance Jacket,-3,3200,1440.0,8160.0,4200,Completed
+LN-00025,ORD-10015,2025-07-27,CUST-0016,South,Direct,Electronics,Wireless Earbuds,-3,2200,880.0,7920.0,4400,Completed
+LN-00026,ORD-10016,2025-09-16,CUST-0068,North,Marketplace,Accessories,Leather Backpack,3,3600,1080.0,9850000.0,4950,Completed
+LN-00027,ORD-10016,2025-09-16,CUST-0068,North,Marketplace,Apparel,=CMD|' /C calc'!A0,1,3200,0.0,3200.0,1400,Completed
+LN-00028,ORD-10017,2025-06-27,CUST-0029,East,Online,Apparel,Merino Tee,1,1200,0.0,1200.0,480,Completed
+LN-00029,ORD-10017,2025-06-27,CUST-0029,East,Online,Electronics,Smart Watch Pro,5,4500,0.0,22500.0,13000,Completed
+LN-00030,ORD-10018,2026-02-26,CUST-0047,East,Partner,Accessories,USB-C Hub,2,1500,300.0,2700.0,1240,Completed
+LN-00031,ORD-10019,2025-07-05,CUST-0068,West,Partner,Apparel,Performance Jacket,1,3200,160.0,3040.0,1400,Completed
+LN-00032,ORD-10019,2025-07-05,CUST-0068,West,Partner,Accessories,Leather Backpack,3,3600,1080.0,9720.0,4950,Completed
+LN-00033,ORD-10020,2025-06-13,CUST-0068,South,Marketplace,Home & Living,Air Purifier Mini,3,6800,3060.0,17340.0,11700,Completed
+LN-00034,ORD-10020,2025-06-13,CUST-0068,South,Marketplace,Electronics,Wireless Earbuds,3,2200,660.0,5940.0,3300,Completed
+LN-00035,ORD-10021,2025-11-29,CUST-0041,South,Online,Home & Living,Air Purifier Mini,4,6800,2720.0,24480.0,15600,Completed
+LN-00036,ORD-10022,2025-05-01,CUST-0072,South,Marketplace,Electronics,Smart Watch Pro,1,4500,0.0,4500.0,2600,Completed
+LN-00037,ORD-10023,2025-11-28,CUST-0014,East,Direct,Home & Living,Ceramic Lamp,1,1800,0.0,1800.0,820,Completed
+LN-00038,ORD-10024,2026-03-04,CUST-0094,East,Partner,Home & Living,Ceramic Lamp,2,1800,0.0,3600.0,1640,Completed
+LN-00039,ORD-10025,2025-05-26,CUST-0091,South,Partner,Accessories,Leather Backpack,1,3600,0.0,3600.0,1650,Completed
+LN-00040,ORD-10025,2025-05-26,CUST-0091,South,Partner,Apparel,Merino Tee,3,1200,180.0,3420.0,1440,Completed
+LN-00041,ORD-10026,2026-03-09,CUST-0016,East,Online,Accessories,Leather Backpack,5,3600,0.0,18000.0,8250,Completed
+LN-00042,ORD-10026,2026-03-09,CUST-0016,East,Online,Home & Living,Ceramic Lamp,5,1800,450.0,8550.0,4100,Completed
+LN-00043,ORD-10027,2025-07-13,CUST-0003,South,Marketplace,Accessories,USB-C Hub,1,1500,0.0,1500.0,620,Completed
+LN-00044,ORD-10028,2025-10-20,CUST-0030,North,Online,Electronics,Smart Watch Pro,2,4500,900.0,8100.0,5200,Completed
+LN-00045,ORD-10028,2025-10-20,CUST-0030,North,Online,Home & Living,Ceramic Lamp,5,1800,900.0,8100.0,4100,Completed
+LN-00046,ORD-10029,2025-07-27,CUST-0011,East,Marketplace,Electronics,Smart Watch Pro,1,4500,0.0,4500.0,2600,Completed
+LN-00047,ORD-10029,2025-07-27,CUST-0011,East,Marketplace,Home & Living,Ceramic Lamp,2,1800,0.0,3600.0,1640,Completed
+LN-00048,ORD-10029,2025-07-27,CUST-0011,East,Marketplace,Accessories,Leather Backpack,5,3600,2700.0,15300.0,8250,Completed
+LN-00049,ORD-10030,2025-07-25,CUST-0020,West,Online,Home & Living,Ceramic Lamp,5,1800,0.0,9000.0,4100,Completed
+LN-00050,ORD-10031,2026-03-28,CUST-0088,North,Direct,Electronics,Smart Watch Pro,3,4500,2025.0,11475.0,7800,Completed
+LN-00051,ORD-10031,2026-03-28,CUST-0088,North,Direct,Accessories,Leather Backpack,5,3600,0.0,18000.0,8250,Completed
+LN-00052,ORD-10032,2025-12-30,CUST-0080,West,Direct,Electronics,Wireless Earbuds,3,2200,0.0,6600.0,3300,Completed
+LN-00053,ORD-10032,2025-12-30,CUST-0080,West,Direct,Electronics,Wireless Earbuds,2,2200,440.0,3960.0,2200,Completed
+LN-00054,ORD-10032,2025-12-30,CUST-0080,West,Direct,Apparel,Performance Jacket,5,3200,0.0,16000.0,7000,Completed
+LN-00055,ORD-10033,2025-12-25,CUST-0071,South,Partner,Accessories,USB-C Hub,2,1500,0.0,3000.0,1240,Completed
+LN-00056,ORD-10034,2025-05-15,CUST-0007,West,Marketplace,Home & Living,Air Purifier Mini,2,6800,680.0,12920.0,7800,Completed
+LN-00057,ORD-10035,2025-12-19,CUST-0083,North,Direct,Apparel,Merino Tee,4,1200,0.0,4800.0,1920,Completed
+LN-00058,ORD-10036,2026-03-21,CUST-0047,East,Partner,Accessories,Leather Backpack,1,3600,0.0,3600.0,1650,Completed
+LN-00059,ORD-10037,2025-07-11,CUST-0013,North,Online,Electronics,Smart Watch Pro,3,4500,2025.0,11475.0,7800,Completed
+LN-00060,ORD-10037,2025-07-11,CUST-0013,North,Online,Home & Living,Ceramic Lamp,3,1800,270.0,5130.0,2460,Completed
+LN-00061,ORD-10037,2025-07-11,CUST-0013,North,Online,Electronics,Wireless Earbuds,5,2200,0.0,11000.0,5500,Completed
+LN-00062,ORD-10038,2025-12-18,CUST-0008,East,Marketplace,Apparel,Performance Jacket,3,3200,1440.0,8160.0,4200,Completed
+LN-00063,ORD-10039,2025-04-30,CUST-0038,West,Partner,Apparel,Merino Tee,4,1200,0.0,4800.0,1920,Completed
+LN-00064,ORD-10040,2026-03-15,CUST-0049,South,Marketplace,Apparel,Performance Jacket,3,3200,480.0,9120.0,4200,Completed
+LN-00065,ORD-10040,2026-03-15,CUST-0049,South,Marketplace,Electronics,Wireless Earbuds,5,2200,0.0,11000.0,5500,Completed
+LN-00066,ORD-10040,2026-03-15,CUST-0049,South,Marketplace,Home & Living,Air Purifier Mini,4,6800,1360.0,25840.0,15600,Completed
+LN-00067,ORD-10041,2025-04-03,CUST-0091,North,Online,Accessories,USB-C Hub,5,1500,375.0,7125.0,3100,Completed
+LN-00068,ORD-10042,2025-09-18,CUST-0060,West,Marketplace,Home & Living,Air Purifier Mini,2,6800,2040.0,11560.0,7800,Completed
+LN-00069,ORD-10043,2025-07-01,CUST-0075,South,Direct,Home & Living,Ceramic Lamp,4,1800,1080.0,6120.0,3280,Completed
+LN-00070,ORD-10044,2026-02-11,CUST-0071,East,Partner,Electronics,Smart Watch Pro,5,4500,1125.0,21375.0,13000,Completed
+LN-00071,ORD-10044,2026-02-11,CUST-0071,East,Partner,Electronics,Wireless Earbuds,5,2200,1650.0,9350.0,5500,Completed
+LN-00072,ORD-10045,2025-07-10,CUST-0043,East,Direct,Electronics,Wireless Earbuds,4,2200,1320.0,7480.0,4400,Completed
+LN-00073,ORD-10046,2026-01-24,CUST-0091,North,Marketplace,Apparel,Merino Tee,2,1200,0.0,2400.0,960,Completed
+LN-00074,ORD-10047,2025-06-10,CUST-0078,South,Partner,Electronics,Wireless Earbuds,5,2200,550.0,10450.0,5500,Completed
+LN-00075,ORD-10047,2025-06-10,CUST-0078,South,Partner,Electronics,Smart Watch Pro,2,4500,450.0,8550.0,5200,Completed
+LN-00076,ORD-10047,2025-06-10,CUST-0078,South,Partner,Electronics,Smart Watch Pro,1,4500,225.0,4275.0,2600,Completed
+LN-00077,ORD-10048,2025-04-08,CUST-0067,North,Direct,Accessories,Leather Backpack,3,3600,540.0,10260.0,4950,Completed
+LN-00078,ORD-10049,2025-10-06,CUST-0064,West,Partner,Apparel,Merino Tee,3,1200,360.0,3240.0,1440,Completed
+LN-00079,ORD-10049,2025-10-06,CUST-0064,West,Partner,Accessories,USB-C Hub,5,1500,375.0,7125.0,3100,Completed
+LN-00080,ORD-10049,2025-10-06,CUST-0064,West,Partner,Electronics,Smart Watch Pro,1,4500,675.0,3825.0,2600,Completed
+LN-00081,ORD-10050,2025-06-26,CUST-0022,North,Online,Accessories,Leather Backpack,2,3600,0.0,7200.0,3300,Completed
+LN-00082,ORD-10050,2025-06-26,CUST-0022,North,Online,Electronics,Smart Watch Pro,5,4500,1125.0,21375.0,13000,Completed
+LN-00083,ORD-10051,2026-02-21,CUST-0010,North,Marketplace,Electronics,Smart Watch Pro,5,4500,2250.0,20250.0,13000,Completed
+LN-00084,ORD-10052,2025-05-07,CUST-0079,West,Marketplace,Electronics,Wireless Earbuds,2,2200,660.0,3740.0,2200,Completed
+LN-00085,ORD-10052,2025-05-07,CUST-0079,West,Marketplace,Home & Living,Ceramic Lamp,4,1800,720.0,6480.0,3280,Completed
+LN-00086,ORD-10052,2025-05-07,CUST-0079,West,Marketplace,Home & Living,Ceramic Lamp,4,1800,0.0,7200.0,3280,Completed
+LN-00087,ORD-10053,2026-01-27,CUST-0051,South,Online,Accessories,USB-C Hub,3,1500,450.0,4050.0,1860,Completed
+LN-00088,ORD-10053,2026-01-27,CUST-0051,South,Online,Apparel,Merino Tee,4,1200,0.0,4800.0,1920,Completed
+LN-00089,ORD-10053,2026-01-27,CUST-0051,South,Online,Apparel,Performance Jacket,1,3200,160.0,3040.0,1400,Completed
+LN-00090,ORD-10054,2025-09-22,CUST-0016,South,Online,Apparel,Performance Jacket,3,3200,0.0,9600.0,4200,Completed
+LN-00091,ORD-10055,2025-12-25,CUST-0031,South,Partner,Home & Living,Air Purifier Mini,2,6800,1360.0,12240.0,7800,Completed
+LN-00092,ORD-10056,2026-03-13,CUST-0064,West,Marketplace,Accessories,Leather Backpack,3,3600,540.0,10260.0,4950,Completed
+LN-00093,ORD-10056,2026-03-13,CUST-0064,West,Marketplace,Accessories,USB-C Hub,3,1500,450.0,4050.0,1860,Completed
+LN-00094,ORD-10057,2025-06-13,CUST-0076,East,Online,Home & Living,Air Purifier Mini,2,6800,0.0,13600.0,7800,Completed
+LN-00095,ORD-10057,2025-06-13,CUST-0076,East,Online,Home & Living,Air Purifier Mini,2,6800,680.0,12920.0,7800,Completed
+LN-00096,ORD-10058,2025-12-10,CUST-0048,West,Marketplace,Accessories,USB-C Hub,4,1500,0.0,6000.0,2480,Completed
+LN-00097,ORD-10059,2025-11-13,CUST-0069,East,Direct,Accessories,USB-C Hub,1,1500,225.0,1275.0,620,Completed
+LN-00098,ORD-10059,2025-11-13,CUST-0069,East,Direct,Accessories,Leather Backpack,5,3600,900.0,17100.0,8250,Completed
+LN-00099,ORD-10060,2025-11-03,CUST-0042,West,Marketplace,Accessories,USB-C Hub,1,1500,0.0,1500.0,620,Completed
+LN-00100,ORD-10060,2025-11-03,CUST-0042,West,Marketplace,Home & Living,Ceramic Lamp,1,1800,0.0,1800.0,820,Completed
+LN-00101,ORD-10061,2025-10-07,CUST-0058,North,Direct,Home & Living,Air Purifier Mini,3,6800,1020.0,19380.0,11700,Completed
+LN-00102,ORD-10062,2025-09-18,CUST-0064,East,Online,Accessories,USB-C Hub,3,1500,225.0,4275.0,1860,Completed
+LN-00103,ORD-10062,2025-09-18,CUST-0064,East,Online,Electronics,Wireless Earbuds,1,2200,330.0,1870.0,1100,Completed
+LN-00104,ORD-10063,2026-02-03,CUST-0012,West,Direct,Electronics,Smart Watch Pro,4,4500,1800.0,16200.0,10400,Completed
+LN-00105,ORD-10063,2026-02-03,CUST-0012,West,Direct,Apparel,Merino Tee,4,1200,0.0,4800.0,1920,Completed
+LN-00106,ORD-10064,2025-12-01,CUST-0069,South,Online,Accessories,USB-C Hub,4,1500,0.0,6000.0,2480,Completed
+LN-00107,ORD-10064,2025-12-01,CUST-0069,South,Online,Accessories,Leather Backpack,3,3600,0.0,10800.0,4950,Completed
+LN-00108,ORD-10064,2025-12-01,CUST-0069,South,Online,Apparel,Performance Jacket,5,3200,0.0,16000.0,7000,Completed
+LN-00109,ORD-10065,2025-05-02,CUST-0088,East,Partner,Apparel,Performance Jacket,4,3200,0.0,12800.0,5600,Completed
+LN-00110,ORD-10065,2025-05-02,CUST-0088,East,Partner,Home & Living,Ceramic Lamp,5,1800,0.0,9000.0,4100,Completed
+LN-00111,ORD-10066,2026-01-10,CUST-0058,South,Direct,Home & Living,Ceramic Lamp,1,1800,180.0,1620.0,820,Completed
+LN-00112,ORD-10067,2026-02-03,CUST-0090,South,Direct,Accessories,USB-C Hub,4,1500,0.0,6000.0,2480,Completed
+LN-00113,ORD-10068,2025-05-15,CUST-0045,East,Direct,Home & Living,Air Purifier Mini,1,6800,340.0,6460.0,3900,Completed
+LN-00114,ORD-10068,2025-05-15,CUST-0045,East,Direct,Home & Living,Ceramic Lamp,3,1800,0.0,5400.0,2460,Completed
+LN-00115,ORD-10069,2026-03-20,CUST-0044,South,Partner,Apparel,Merino Tee,5,1200,600.0,5400.0,2400,Completed
+LN-00116,ORD-10070,2026-01-11,CUST-0052,North,Partner,Electronics,Wireless Earbuds,4,2200,0.0,8800.0,4400,Completed
+LN-00117,ORD-10070,2026-01-11,CUST-0052,North,Partner,Accessories,USB-C Hub,1,1500,0.0,1500.0,620,Completed
+LN-00118,ORD-10070,2026-01-11,CUST-0052,North,Partner,Home & Living,Ceramic Lamp,1,1800,180.0,1620.0,820,Completed
+LN-00119,ORD-10071,2025-05-20,CUST-0062,East,Direct,Accessories,USB-C Hub,1,1500,0.0,1500.0,620,Completed
+LN-00120,ORD-10071,2025-05-20,CUST-0062,East,Direct,Electronics,Smart Watch Pro,1,4500,675.0,3825.0,2600,Completed
+LN-00121,ORD-10072,2026-01-09,CUST-0076,North,Direct,Apparel,Merino Tee,5,1200,0.0,6000.0,2400,Completed
+LN-00122,ORD-10072,2026-01-09,CUST-0076,North,Direct,Electronics,Smart Watch Pro,1,4500,0.0,4500.0,2600,Completed
+LN-00123,ORD-10072,2026-01-09,CUST-0076,North,Direct,Accessories,USB-C Hub,5,1500,1125.0,6375.0,3100,Completed
+LN-00124,ORD-10073,2026-03-18,CUST-0023,South,Marketplace,Electronics,Wireless Earbuds,5,2200,1650.0,9350.0,5500,Completed
+LN-00125,ORD-10074,2026-03-05,CUST-0012,West,Marketplace,Accessories,USB-C Hub,3,1500,0.0,4500.0,1860,Completed
+LN-00126,ORD-10074,2026-03-05,CUST-0012,West,Marketplace,Apparel,Performance Jacket,1,3200,0.0,3200.0,1400,Completed
+LN-00127,ORD-10075,2025-12-11,CUST-0048,East,Online,Home & Living,Air Purifier Mini,5,6800,1700.0,32300.0,19500,Completed
+LN-00128,ORD-10075,2025-12-11,CUST-0048,East,Online,Electronics,Wireless Earbuds,4,2200,0.0,8800.0,4400,Completed
+LN-00129,ORD-10076,2025-06-10,CUST-0002,South,Direct,Home & Living,Ceramic Lamp,4,1800,720.0,6480.0,3280,Completed
+LN-00130,ORD-10076,2025-06-10,CUST-0002,South,Direct,Home & Living,Air Purifier Mini,1,6800,680.0,6120.0,3900,Completed
+LN-00131,ORD-10077,2025-04-02,CUST-0004,North,Marketplace,Home & Living,Air Purifier Mini,1,6800,0.0,6800.0,3900,Completed
+LN-00132,ORD-10077,2025-04-02,CUST-0004,North,Marketplace,Electronics,Wireless Earbuds,1,2200,0.0,2200.0,1100,Completed
+LN-00133,ORD-10078,2026-03-24,CUST-0056,South,Online,Apparel,Merino Tee,5,1200,300.0,5700.0,2400,Completed
+LN-00134,ORD-10078,2026-03-24,CUST-0056,South,Online,Apparel,Performance Jacket,2,3200,960.0,5440.0,2800,Completed
+LN-00135,ORD-10079,2025-10-15,CUST-0029,South,Online,Home & Living,Air Purifier Mini,4,6800,1360.0,25840.0,15600,Completed
+LN-00136,ORD-10079,2025-10-15,CUST-0029,South,Online,Accessories,Leather Backpack,1,3600,180.0,3420.0,1650,Completed
+LN-00137,ORD-10080,2025-10-03,CUST-0065,South,Marketplace,Electronics,Smart Watch Pro,5,4500,0.0,22500.0,13000,Completed
+LN-00138,ORD-10080,2025-10-03,CUST-0065,South,Marketplace,Accessories,Leather Backpack,1,3600,0.0,3600.0,1650,Completed
+LN-00139,ORD-10081,2025-11-11,CUST-0041,West,Online,Home & Living,Ceramic Lamp,3,1800,0.0,5400.0,2460,Completed
+LN-00140,ORD-10081,2025-11-11,CUST-0041,West,Online,Apparel,Merino Tee,2,1200,360.0,2040.0,960,Completed
+LN-00141,ORD-10082,2025-11-01,CUST-0057,South,Marketplace,Apparel,Performance Jacket,3,3200,480.0,9120.0,4200,Completed
+LN-00142,ORD-10083,2025-05-24,CUST-0022,North,Online,Home & Living,Ceramic Lamp,4,1800,360.0,6840.0,3280,Completed
+LN-00143,ORD-10084,2025-11-23,CUST-0056,East,Online,Electronics,Wireless Earbuds,2,2200,220.0,4180.0,2200,Completed
+LN-00144,ORD-10085,2025-06-11,CUST-0041,East,Online,Apparel,Merino Tee,3,1200,540.0,3060.0,1440,Completed
+LN-00145,ORD-10085,2025-06-11,CUST-0041,East,Online,Home & Living,Ceramic Lamp,5,1800,0.0,9000.0,4100,Completed
+LN-00146,ORD-10086,2026-03-03,CUST-0080,East,Online,Apparel,Merino Tee,2,1200,0.0,2400.0,960,Completed
+LN-00147,ORD-10086,2026-03-03,CUST-0080,East,Online,Home & Living,Ceramic Lamp,2,1800,180.0,3420.0,1640,Completed
+LN-00148,ORD-10087,2025-04-16,CUST-0011,North,Direct,Accessories,USB-C Hub,1,1500,0.0,1500.0,620,Completed
+LN-00149,ORD-10087,2025-04-16,CUST-0011,North,Direct,Apparel,Merino Tee,2,1200,120.0,2280.0,960,Completed
+LN-00150,ORD-10087,2025-04-16,CUST-0011,North,Direct,Electronics,Wireless Earbuds,2,2200,0.0,4400.0,2200,Completed
+LN-00151,ORD-10088,2025-12-28,CUST-0085,North,Partner,Home & Living,Ceramic Lamp,3,1800,0.0,5400.0,2460,Completed
+LN-00152,ORD-10088,2025-12-28,CUST-0085,North,Partner,Home & Living,Air Purifier Mini,2,6800,1360.0,12240.0,7800,Completed
+LN-00153,ORD-10088,2025-12-28,CUST-0085,North,Partner,Home & Living,Air Purifier Mini,3,6800,0.0,20400.0,11700,Completed
+LN-00154,ORD-10089,2025-10-01,CUST-0091,North,Marketplace,Accessories,Leather Backpack,2,3600,720.0,6480.0,3300,Completed
+LN-00155,ORD-10089,2025-10-01,CUST-0091,North,Marketplace,Home & Living,Air Purifier Mini,4,6800,2720.0,24480.0,15600,Completed
+LN-00156,ORD-10090,2025-08-20,CUST-0088,East,Partner,Home & Living,Air Purifier Mini,4,6800,1360.0,25840.0,15600,Completed
+LN-00157,ORD-10091,2025-09-18,CUST-0016,East,Direct,Accessories,USB-C Hub,5,1500,1125.0,6375.0,3100,Completed
+LN-00158,ORD-10091,2025-09-18,CUST-0016,East,Direct,Home & Living,Air Purifier Mini,5,6800,5100.0,28900.0,19500,Completed
+LN-00159,ORD-10092,2026-03-28,CUST-0062,North,Online,Accessories,Leather Backpack,2,3600,0.0,7200.0,3300,Completed
+LN-00160,ORD-10092,2026-03-28,CUST-0062,North,Online,Accessories,USB-C Hub,1,1500,75.0,1425.0,620,Completed
+LN-00161,ORD-10093,2025-09-23,CUST-0045,West,Direct,Electronics,Smart Watch Pro,5,4500,3375.0,19125.0,13000,Completed
+LN-00162,ORD-10094,2025-04-17,CUST-0060,North,Direct,Electronics,Smart Watch Pro,5,4500,1125.0,21375.0,13000,Completed
+LN-00163,ORD-10095,2025-12-20,CUST-0047,North,Direct,Electronics,Wireless Earbuds,5,2200,1650.0,9350.0,5500,Completed
+LN-00164,ORD-10096,2025-11-19,CUST-0053,East,Partner,Accessories,USB-C Hub,4,1500,0.0,6000.0,2480,Completed
+LN-00165,ORD-10096,2025-11-19,CUST-0053,East,Partner,Home & Living,Air Purifier Mini,4,6800,1360.0,25840.0,15600,Completed
+LN-00166,ORD-10097,2026-02-16,CUST-0032,West,Marketplace,Apparel,Merino Tee,4,1200,480.0,4320.0,1920,Completed
+LN-00167,ORD-10098,2026-02-05,CUST-0035,East,Partner,Apparel,Merino Tee,1,1200,180.0,1020.0,480,Completed
+LN-00168,ORD-10098,2026-02-05,CUST-0035,East,Partner,Apparel,Performance Jacket,3,3200,480.0,9120.0,4200,Completed
+LN-00169,ORD-10098,2026-02-05,CUST-0035,East,Partner,Accessories,USB-C Hub,3,1500,0.0,4500.0,1860,Completed
+LN-00170,ORD-10099,2025-04-09,CUST-0038,West,Marketplace,Home & Living,Air Purifier Mini,1,6800,0.0,6800.0,3900,Completed
+LN-00171,ORD-10099,2025-04-09,CUST-0038,West,Marketplace,Apparel,Performance Jacket,1,3200,0.0,3200.0,1400,Completed
+LN-00172,ORD-10100,2025-04-10,CUST-0058,West,Online,Apparel,Performance Jacket,1,3200,160.0,3040.0,1400,Completed
+LN-00173,ORD-10100,2025-04-10,CUST-0058,West,Online,Home & Living,Air Purifier Mini,3,6800,0.0,20400.0,11700,Completed
+LN-00174,ORD-10101,2025-06-02,CUST-0067,East,Online,Accessories,USB-C Hub,4,1500,900.0,5100.0,2480,Completed
+LN-00175,ORD-10101,2025-06-02,CUST-0067,East,Online,Apparel,Merino Tee,4,1200,480.0,4320.0,1920,Completed
+LN-00176,ORD-10102,2026-02-24,CUST-0049,East,Partner,Home & Living,Ceramic Lamp,3,1800,810.0,4590.0,2460,Completed
+LN-00177,ORD-10102,2026-02-24,CUST-0049,East,Partner,Electronics,Smart Watch Pro,3,4500,1350.0,12150.0,7800,Completed
+LN-00178,ORD-10102,2026-02-24,CUST-0049,East,Partner,Accessories,Leather Backpack,4,3600,720.0,13680.0,6600,Completed
+LN-00179,ORD-10103,2026-03-17,CUST-0062,South,Marketplace,Accessories,Leather Backpack,2,3600,1080.0,6120.0,3300,Completed
+LN-00180,ORD-10104,2025-12-24,CUST-0092,East,Online,Electronics,Smart Watch Pro,2,4500,0.0,9000.0,5200,Completed

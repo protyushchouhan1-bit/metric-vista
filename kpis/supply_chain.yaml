@@ -1,0 +1,50 @@
+department: supply_chain
+version: "v2.0-phase2"
+kpis:
+  - code: SC_INVENTORY_TURNOVER
+    name: Inventory Turnover
+    department: supply_chain
+    business_meaning: Number of times inventory is sold and replaced over the period.
+    formula_expression: SUM(cogs) / SUM(avg_inventory_value)
+    required_concepts: [cogs, avg_inventory_value]
+    required_grain: [sku_record]
+    aggregation_method: ratio
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: ratio
+    quality_prerequisites: ["avg_inventory_value > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Uses average inventory value provided in snapshot."
+
+  - code: SC_ON_TIME_DELIVERY_PCT
+    name: On-Time Delivery (OTD %)
+    department: supply_chain
+    business_meaning: Percentage of orders delivered on or before promised date.
+    formula_expression: (SUM(orders_on_time) / SUM(orders_total)) * 100
+    required_concepts: [orders_on_time, orders_total]
+    required_grain: [sku_record]
+    aggregation_method: percentage
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: percent
+    quality_prerequisites: ["orders_total > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Weighted by order volume."
+
+  - code: SC_STOCKOUT_RATE_PCT
+    name: Stock-Out Rate %
+    department: supply_chain
+    business_meaning: Percentage of tracked SKUs with zero on-hand units.
+    formula_expression: (COUNT(on_hand_units == 0) / COUNT(sku_id)) * 100
+    required_concepts: [sku_id, on_hand_units]
+    required_grain: [sku_record]
+    aggregation_method: percentage
+    time_period_logic: point_in_time
+    inclusion_exclusion_rules: "Includes all active SKUs"
+    unit_format: percent
+    quality_prerequisites: ["on_hand_units numeric"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Point-in-time warehouse snapshot."

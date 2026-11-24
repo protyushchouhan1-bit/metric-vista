@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: #0A0E17;
+  color: #F1F5F9;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.nexus-card {
+  background-color: #111827;
+  border: 1px solid #1F2937;
+  border-radius: 0.75rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.nexus-card:hover {
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.12);
+}

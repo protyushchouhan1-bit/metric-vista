@@ -1,0 +1,26 @@
+name: Project NEXUS CI — Tests, Security, AI Eval & Lint
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  verify-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Lint with ruff
+        run: ruff check core backend tests server.py --ignore E501
+      - name: Run 6-layer unit, integration, security & LibreOffice parity tests
+        env:
+          NEXUS_ENV: test
+          NEXUS_JWT_SECRET: ci-ephemeral-test-secret-do-not-use-in-prod
+        run: python3 -m unittest discover -s tests -v
+      - name: Run 35-question Golden AI Evaluation Suite
+        run: python3 tests/eval_ai_golden.py

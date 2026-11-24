@@ -1,0 +1,114 @@
+department: finance
+version: "v2.0"
+kpis:
+  - code: FIN_TOTAL_REVENUE
+    name: P&L Total Revenue
+    department: finance
+    business_meaning: Total realized actual revenue across Revenue P&L accounts.
+    formula_expression: SUM(actual_amount WHERE account_category = 'Revenue')
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: conditional_sum
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Include account_category matching Revenue"
+    unit_format: currency
+    quality_prerequisites: ["account_category confirmed"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Assumes positive sign convention for revenue rows."
+
+  - code: FIN_COGS
+    name: P&L Cost of Goods Sold (COGS)
+    department: finance
+    business_meaning: Total direct cost of goods and services delivered.
+    formula_expression: SUM(actual_amount WHERE account_category = 'COGS')
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: conditional_sum
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Include account_category matching COGS"
+    unit_format: currency
+    quality_prerequisites: ["account_category confirmed"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Configurable sign rule normalizes expenses as positive magnitudes."
+
+  - code: FIN_OPEX
+    name: Operating Expenses (OpEx)
+    department: finance
+    business_meaning: Total operating overhead across payroll, marketing, software, and admin.
+    formula_expression: SUM(actual_amount WHERE account_category = 'OpEx')
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: conditional_sum
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Include account_category matching OpEx"
+    unit_format: currency
+    quality_prerequisites: ["account_category confirmed"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Excludes non-operating interest and taxes unless categorized."
+
+  - code: FIN_GROSS_PROFIT
+    name: P&L Gross Profit
+    department: finance
+    business_meaning: P&L Revenue minus direct COGS.
+    formula_expression: FIN_TOTAL_REVENUE - FIN_COGS
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: difference
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Derived deterministically from P&L Revenue and COGS"
+    unit_format: currency
+    quality_prerequisites: ["Both Revenue and COGS rows present"]
+    validation_rules: ["revenue_present"]
+    calculation_version: "v2.0"
+    known_limitations: "Requires accurate account categorization."
+
+  - code: FIN_OPERATING_PROFIT
+    name: Operating Profit (EBIT)
+    department: finance
+    business_meaning: Gross Profit minus Operating Expenses.
+    formula_expression: FIN_GROSS_PROFIT - FIN_OPEX
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: difference
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Derived deterministically from Gross Profit and OpEx"
+    unit_format: currency
+    quality_prerequisites: ["Revenue, COGS, and OpEx rows present"]
+    validation_rules: ["revenue_present"]
+    calculation_version: "v2.0"
+    known_limitations: "Not an audited statutory GAAP/Ind-AS filing."
+
+  - code: FIN_OPERATING_MARGIN_PCT
+    name: Operating Margin %
+    department: finance
+    business_meaning: Percentage of P&L revenue converted to operating profit.
+    formula_expression: (FIN_OPERATING_PROFIT / FIN_TOTAL_REVENUE) * 100
+    required_concepts: [actual_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: percentage
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: percent
+    quality_prerequisites: ["P&L Revenue > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Sensitive to accrual timing in monthly ledgers."
+
+  - code: FIN_BUDGET_VARIANCE_PCT
+    name: Revenue Budget Variance %
+    department: finance
+    business_meaning: Percentage variance of Actual Revenue vs Budgeted Revenue.
+    formula_expression: ((Actual_Rev - Budget_Rev) / Budget_Rev) * 100
+    required_concepts: [actual_amount, budget_amount, account_category]
+    required_grain: [ledger_entry]
+    aggregation_method: percentage
+    time_period_logic: fiscal_calendar
+    inclusion_exclusion_rules: "Scoped to Revenue accounts; guard divide-by-zero"
+    unit_format: percent
+    quality_prerequisites: ["budget_amount mapped"]
+    validation_rules: ["budget_denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Marked Not Calculable if budget_amount is absent."

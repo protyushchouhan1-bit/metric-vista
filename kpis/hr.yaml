@@ -1,0 +1,50 @@
+department: hr
+version: "v2.0-phase2"
+kpis:
+  - code: HR_HEADCOUNT
+    name: Active Headcount
+    department: hr
+    business_meaning: Count of unique active employees.
+    formula_expression: COUNT(DISTINCT employee_id WHERE employment_status = 'Active')
+    required_concepts: [employee_id, employment_status]
+    required_grain: [employee_record]
+    aggregation_method: count_distinct
+    time_period_logic: point_in_time
+    inclusion_exclusion_rules: "Include Active employees only"
+    unit_format: integer
+    quality_prerequisites: ["employee_id unique"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Snapshot reflects latest upload."
+
+  - code: HR_ATTRITION_PCT
+    name: Attrition Rate %
+    department: hr
+    business_meaning: Share of total workforce marked Exited.
+    formula_expression: (COUNT(Exited) / COUNT(DISTINCT employee_id)) * 100
+    required_concepts: [employee_id, employment_status]
+    required_grain: [employee_record]
+    aggregation_method: percentage
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Minimum group threshold k >= 5 for departmental slices"
+    unit_format: percent
+    quality_prerequisites: ["employee_id and employment_status confirmed"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Does not distinguish voluntary vs involuntary exits unless tagged."
+
+  - code: HR_AVG_TIME_TO_HIRE
+    name: Avg Time to Hire (Days)
+    department: hr
+    business_meaning: Average days taken to fill open requisitions.
+    formula_expression: AVG(time_to_hire_days)
+    required_concepts: [time_to_hire_days]
+    required_grain: [employee_record]
+    aggregation_method: avg
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude null durations"
+    unit_format: number
+    quality_prerequisites: ["Numeric time_to_hire_days"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Salary PII columns remain masked unless HR Head role."

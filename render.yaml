@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: metric-vista
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python3 generate_sample_data.py
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/ai-status
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: NEXUS_JWT_SECRET
+        generateValue: true
+      - key: NEXUS_FERNET_KEY
+        generateValue: true

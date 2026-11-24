@@ -1,0 +1,24 @@
+# Secrets & local environment (NEVER commit .env to GitHub)
+.env
+.env.local
+
+# Python caches & virtual environments
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+
+# Local runtime uploads & SQLite DB
+runtime_storage/
+*.db
+*.sqlite3
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

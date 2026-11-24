@@ -1,0 +1,130 @@
+department: sales
+version: "v2.0"
+kpis:
+  - code: SALES_TOTAL_REVENUE
+    name: Total Revenue
+    department: sales
+    business_meaning: Total net realized revenue across non-cancelled sales records.
+    formula_expression: SUM(revenue)
+    required_concepts: [revenue]
+    required_grain: [order, line_item]
+    aggregation_method: sum
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude order_status in ('Cancelled', 'Void')"
+    unit_format: currency
+    quality_prerequisites: ["Completeness >= 70%", "No mixed currencies"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Does not convert multi-currency figures without FX table."
+
+  - code: SALES_DISTINCT_ORDERS
+    name: Distinct Orders
+    department: sales
+    business_meaning: Unique count of completed orders, protected against line-item grain inflation.
+    formula_expression: COUNT(DISTINCT order_id)
+    required_concepts: [order_id]
+    required_grain: [order, line_item]
+    aggregation_method: count_distinct
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude order_status in ('Cancelled', 'Void')"
+    unit_format: integer
+    quality_prerequisites: ["order_id non-empty"]
+    validation_rules: ["distinct_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Requires confirmed order_id column."
+
+  - code: SALES_AOV
+    name: Average Order Value (AOV)
+    department: sales
+    business_meaning: Average net revenue per unique order (grain-safe via DISTINCT order_id).
+    formula_expression: SUM(revenue) / COUNT(DISTINCT order_id)
+    required_concepts: [revenue, order_id]
+    required_grain: [order, line_item]
+    aggregation_method: ratio
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude cancelled orders; guard divide-by-zero"
+    unit_format: currency
+    quality_prerequisites: ["Grain confirmed (order vs line_item)"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Line-item datasets must map order_id to avoid 3x-5x inflation."
+
+  - code: SALES_UNITS_SOLD
+    name: Total Units Sold
+    department: sales
+    business_meaning: Total physical or license units sold across eligible transactions.
+    formula_expression: SUM(quantity)
+    required_concepts: [quantity]
+    required_grain: [order, line_item]
+    aggregation_method: sum
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude cancelled orders; flag negative return quantities"
+    unit_format: integer
+    quality_prerequisites: ["Numeric quantity column"]
+    validation_rules: ["non_null_count > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Mixed unit-of-measure rows are not normalized."
+
+  - code: SALES_ASP
+    name: Average Selling Price (ASP)
+    department: sales
+    business_meaning: Average realized net revenue per unit sold.
+    formula_expression: SUM(revenue) / SUM(quantity)
+    required_concepts: [revenue, quantity]
+    required_grain: [order, line_item]
+    aggregation_method: ratio
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude cancelled orders; guard divide-by-zero"
+    unit_format: currency
+    quality_prerequisites: ["Positive total units"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Blends product mix across categories."
+
+  - code: SALES_GROSS_PROFIT
+    name: Gross Profit
+    department: sales
+    business_meaning: Net revenue minus direct Cost of Goods Sold (COGS).
+    formula_expression: SUM(revenue) - SUM(cogs)
+    required_concepts: [revenue, cogs]
+    required_grain: [order, line_item]
+    aggregation_method: difference
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude cancelled orders; never substitute 0 for missing COGS"
+    unit_format: currency
+    quality_prerequisites: ["cogs column mapped and confirmed"]
+    validation_rules: ["cogs_present"]
+    calculation_version: "v2.0"
+    known_limitations: "Marked Not Calculable if COGS column is absent."
+
+  - code: SALES_GROSS_MARGIN_PCT
+    name: Gross Margin %
+    department: sales
+    business_meaning: Percentage of net revenue retained after direct COGS.
+    formula_expression: ((SUM(revenue) - SUM(cogs)) / SUM(revenue)) * 100
+    required_concepts: [revenue, cogs]
+    required_grain: [order, line_item]
+    aggregation_method: percentage
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero; never display 0% when COGS is missing"
+    unit_format: percent
+    quality_prerequisites: ["revenue and cogs confirmed"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Does not include indirect operating expenses."
+
+  - code: SALES_REPEAT_PURCHASE_RATE
+    name: Repeat Purchase Rate %
+    department: sales
+    business_meaning: Share of unique customers placing more than one distinct order.
+    formula_expression: (COUNT(customers with >1 order) / COUNT(DISTINCT customer_id)) * 100
+    required_concepts: [customer_id, order_id]
+    required_grain: [order, line_item]
+    aggregation_method: percentage
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Exclude cancelled orders"
+    unit_format: percent
+    quality_prerequisites: ["customer_id and order_id mapped"]
+    validation_rules: ["unique_customers > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Scoped strictly to the uploaded date window."

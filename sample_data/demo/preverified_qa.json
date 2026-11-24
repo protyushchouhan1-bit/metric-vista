@@ -1,0 +1,604 @@
+{
+  "break down revenue by region": {
+    "question": "Break down revenue by region",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): region=South: 1,010,900.00; region=West: 1,001,100.00; region=North: 917,765.00; region=East: 854,530.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "region"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "region": "South",
+          "value": 1010900.0
+        },
+        {
+          "region": "West",
+          "value": 1001100.0
+        },
+        {
+          "region": "North",
+          "value": 917765.0
+        },
+        {
+          "region": "East",
+          "value": 854530.0
+        }
+      ]
+    }
+  },
+  "what products are driving the highest revenue?": {
+    "question": "What products are driving the highest revenue?",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): product_name=Air Purifier Mini: 1,068,960.00; product_name=Smart Watch Pro: 670,950.00; product_name=Performance Jacket: 514,560.00; product_name=Leather Backpack: 497,700.00; product_name=Wireless Earbuds: 372,020.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "product_name"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "product_name": "Air Purifier Mini",
+          "value": 1068960.0
+        },
+        {
+          "product_name": "Smart Watch Pro",
+          "value": 670950.0
+        },
+        {
+          "product_name": "Performance Jacket",
+          "value": 514560.0
+        },
+        {
+          "product_name": "Leather Backpack",
+          "value": 497700.0
+        },
+        {
+          "product_name": "Wireless Earbuds",
+          "value": 372020.0
+        },
+        {
+          "product_name": "USB-C Hub",
+          "value": 267975.0
+        },
+        {
+          "product_name": "Ceramic Lamp",
+          "value": 258030.0
+        },
+        {
+          "product_name": "Merino Tee",
+          "value": 134100.0
+        }
+      ]
+    }
+  },
+  "compare revenue by channel": {
+    "question": "Compare revenue by channel",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): channel=Online: 1,032,340.00; channel=Marketplace: 1,005,785.00; channel=Partner: 929,185.00; channel=Direct: 816,985.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "channel"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "channel": "Online",
+          "value": 1032340.0
+        },
+        {
+          "channel": "Marketplace",
+          "value": 1005785.0
+        },
+        {
+          "channel": "Partner",
+          "value": 929185.0
+        },
+        {
+          "channel": "Direct",
+          "value": 816985.0
+        }
+      ]
+    }
+  },
+  "show revenue by product category": {
+    "question": "Show revenue by product category",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): product_category=Home & Living, product_name=Air Purifier Mini: 1,068,960.00; product_category=Electronics, product_name=Smart Watch Pro: 670,950.00; product_category=Apparel, product_name=Performance Jacket: 514,560.00; product_category=Accessories, product_name=Leather Backpack: 497,700.00; product_category=Electronics, product_name=Wireless Earbuds: 372,020.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "product_category",
+          "product_name"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "product_category": "Home & Living",
+          "product_name": "Air Purifier Mini",
+          "value": 1068960.0
+        },
+        {
+          "product_category": "Electronics",
+          "product_name": "Smart Watch Pro",
+          "value": 670950.0
+        },
+        {
+          "product_category": "Apparel",
+          "product_name": "Performance Jacket",
+          "value": 514560.0
+        },
+        {
+          "product_category": "Accessories",
+          "product_name": "Leather Backpack",
+          "value": 497700.0
+        },
+        {
+          "product_category": "Electronics",
+          "product_name": "Wireless Earbuds",
+          "value": 372020.0
+        },
+        {
+          "product_category": "Accessories",
+          "product_name": "USB-C Hub",
+          "value": 267975.0
+        },
+        {
+          "product_category": "Home & Living",
+          "product_name": "Ceramic Lamp",
+          "value": 258030.0
+        },
+        {
+          "product_category": "Apparel",
+          "product_name": "Merino Tee",
+          "value": 134100.0
+        }
+      ]
+    }
+  },
+  "which region has the lowest revenue?": {
+    "question": "Which region has the lowest revenue?",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): region=East: 854,530.00; region=North: 917,765.00; region=West: 1,001,100.00; region=South: 1,010,900.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "region"
+        ],
+        "filters": [],
+        "order_direction": "asc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "region": "East",
+          "value": 854530.0
+        },
+        {
+          "region": "North",
+          "value": 917765.0
+        },
+        {
+          "region": "West",
+          "value": 1001100.0
+        },
+        {
+          "region": "South",
+          "value": 1010900.0
+        }
+      ]
+    }
+  },
+  "show cogs by region": {
+    "question": "Show COGS by region",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): region=South: 550,820.00; region=West: 539,820.00; region=North: 498,770.00; region=East: 453,910.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "cogs",
+        "aggregation": "sum",
+        "group_by": [
+          "region"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "region": "South",
+          "value": 550820.0
+        },
+        {
+          "region": "West",
+          "value": 539820.0
+        },
+        {
+          "region": "North",
+          "value": 498770.0
+        },
+        {
+          "region": "East",
+          "value": 453910.0
+        }
+      ]
+    }
+  },
+  "show discount by channel": {
+    "question": "Show discount by channel",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): channel=Direct: 62,715.00; channel=Marketplace: 59,815.00; channel=Partner: 57,115.00; channel=Online: 56,460.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "discount_amount",
+        "aggregation": "sum",
+        "group_by": [
+          "channel"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "channel": "Direct",
+          "value": 62715.0
+        },
+        {
+          "channel": "Marketplace",
+          "value": 59815.0
+        },
+        {
+          "channel": "Partner",
+          "value": 57115.0
+        },
+        {
+          "channel": "Online",
+          "value": 56460.0
+        }
+      ]
+    }
+  },
+  "show units sold by product category": {
+    "question": "Show units sold by product category",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): product_category=Accessories, product_name=USB-C Hub: 190.00; product_category=Electronics, product_name=Wireless Earbuds: 180.00; product_category=Home & Living, product_name=Air Purifier Mini: 169.00; product_category=Apparel, product_name=Performance Jacket: 169.00; product_category=Electronics, product_name=Smart Watch Pro: 158.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "quantity",
+        "aggregation": "sum",
+        "group_by": [
+          "product_category",
+          "product_name"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "product_category": "Accessories",
+          "product_name": "USB-C Hub",
+          "value": 190.0
+        },
+        {
+          "product_category": "Electronics",
+          "product_name": "Wireless Earbuds",
+          "value": 180.0
+        },
+        {
+          "product_category": "Home & Living",
+          "product_name": "Air Purifier Mini",
+          "value": 169.0
+        },
+        {
+          "product_category": "Apparel",
+          "product_name": "Performance Jacket",
+          "value": 169.0
+        },
+        {
+          "product_category": "Electronics",
+          "product_name": "Smart Watch Pro",
+          "value": 158.0
+        },
+        {
+          "product_category": "Home & Living",
+          "product_name": "Ceramic Lamp",
+          "value": 150.0
+        },
+        {
+          "product_category": "Accessories",
+          "product_name": "Leather Backpack",
+          "value": 146.0
+        },
+        {
+          "product_category": "Apparel",
+          "product_name": "Merino Tee",
+          "value": 119.0
+        }
+      ]
+    }
+  },
+  "top customers by revenue": {
+    "question": "Top customers by revenue",
+    "stage": "stage2_json_ast",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage2_json_ast): customer_id=CUST-0016: 152,770.00; customer_id=CUST-0088: 149,290.00; customer_id=CUST-0049: 118,140.00; customer_id=CUST-0007: 117,810.00; customer_id=CUST-0071: 113,465.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": {
+        "metric": "revenue",
+        "aggregation": "sum",
+        "group_by": [
+          "customer_id"
+        ],
+        "filters": [],
+        "order_direction": "desc",
+        "limit": 10
+      },
+      "rows_scanned": 430,
+      "result_rows": [
+        {
+          "customer_id": "CUST-0016",
+          "value": 152770.0
+        },
+        {
+          "customer_id": "CUST-0088",
+          "value": 149290.0
+        },
+        {
+          "customer_id": "CUST-0049",
+          "value": 118140.0
+        },
+        {
+          "customer_id": "CUST-0007",
+          "value": 117810.0
+        },
+        {
+          "customer_id": "CUST-0071",
+          "value": 113465.0
+        },
+        {
+          "customer_id": "CUST-0051",
+          "value": 108555.0
+        },
+        {
+          "customer_id": "CUST-0010",
+          "value": 95780.0
+        },
+        {
+          "customer_id": "CUST-0074",
+          "value": 91900.0
+        },
+        {
+          "customer_id": "CUST-0060",
+          "value": 90520.0
+        },
+        {
+          "customer_id": "CUST-0013",
+          "value": 86685.0
+        }
+      ]
+    }
+  },
+  "what is our overall sales summary?": {
+    "question": "What is our overall sales summary?",
+    "stage": "stage1_kpi_summary",
+    "execution_mode": "rule_based_offline",
+    "cache_hit": false,
+    "structured_answer": {
+      "verified_observation_and_evidence": "Verified deterministic output (stage1_kpi_summary): Total Revenue: \u20b93,784,295.00; Distinct Orders: 250; Average Order Value (AOV): \u20b915,137.18; Total Units Sold: 1,281; Average Selling Price (ASP): \u20b92,954.17; Gross Profit: \u20b91,740,975.00",
+      "business_impact": "These verified figures reflect realized performance across the active dataset scope and filters.",
+      "possible_explanations_hypotheses": [
+        "Hypothesis (Unverified \u2014 Correlation != Causation): Regional/category mix shifts, discount depth, or seasonal order frequency may contribute to observed variance."
+      ],
+      "recommended_investigation_actions": [
+        "Cross-filter the dashboard by the leading and lagging segments to isolate price vs. volume drivers.",
+        "Inspect KPI Trust Tooltips and the 7-Dimension Quality Scorecard to confirm excluded rows."
+      ],
+      "confidence_and_data_limitations": "High arithmetic confidence (100% deterministic Python/DuckDB execution). All figures computed deterministically from the uploaded dataset; external market drivers are not uploaded."
+    },
+    "see_the_query_and_evidence": {
+      "validated_ast": null,
+      "verified_kpis": [
+        {
+          "code": "SALES_TOTAL_REVENUE",
+          "name": "Total Revenue",
+          "value": "\u20b93,784,295.00",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_DISTINCT_ORDERS",
+          "name": "Distinct Orders",
+          "value": "250",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_AOV",
+          "name": "Average Order Value (AOV)",
+          "value": "\u20b915,137.18",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_UNITS_SOLD",
+          "name": "Total Units Sold",
+          "value": "1,281",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_ASP",
+          "name": "Average Selling Price (ASP)",
+          "value": "\u20b92,954.17",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_GROSS_PROFIT",
+          "name": "Gross Profit",
+          "value": "\u20b91,740,975.00",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_GROSS_MARGIN_PCT",
+          "name": "Gross Margin %",
+          "value": "46.01%",
+          "status": "Calculable"
+        },
+        {
+          "code": "SALES_REPEAT_PURCHASE_RATE",
+          "name": "Repeat Purchase Rate %",
+          "value": "79.31%",
+          "status": "Calculable"
+        }
+      ]
+    }
+  }
+}

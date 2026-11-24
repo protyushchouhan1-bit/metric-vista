@@ -1,0 +1,50 @@
+department: marketing
+version: "v2.0-phase2"
+kpis:
+  - code: MKT_ROAS
+    name: Return on Ad Spend (ROAS)
+    department: marketing
+    business_meaning: Attributed revenue generated per unit of marketing spend.
+    formula_expression: SUM(attributed_revenue) / SUM(marketing_spend)
+    required_concepts: [attributed_revenue, marketing_spend]
+    required_grain: [campaign_period]
+    aggregation_method: ratio
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: ratio
+    quality_prerequisites: ["marketing_spend > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Depends on source attribution model."
+
+  - code: MKT_CAC
+    name: Customer Acquisition Cost (CAC)
+    department: marketing
+    business_meaning: Average marketing spend required per conversion.
+    formula_expression: SUM(marketing_spend) / SUM(conversions)
+    required_concepts: [marketing_spend, conversions]
+    required_grain: [campaign_period]
+    aggregation_method: ratio
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: currency
+    quality_prerequisites: ["conversions > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Excludes sales payroll overhead unless loaded."
+
+  - code: MKT_CTR_PCT
+    name: Click-Through Rate (CTR %)
+    department: marketing
+    business_meaning: Percentage of ad impressions resulting in clicks.
+    formula_expression: (SUM(clicks) / SUM(impressions)) * 100
+    required_concepts: [clicks, impressions]
+    required_grain: [campaign_period]
+    aggregation_method: percentage
+    time_period_logic: fiscal_or_calendar
+    inclusion_exclusion_rules: "Guard divide-by-zero"
+    unit_format: percent
+    quality_prerequisites: ["impressions > 0"]
+    validation_rules: ["denominator > 0"]
+    calculation_version: "v2.0"
+    known_limitations: "Blended across channels unless filtered."
