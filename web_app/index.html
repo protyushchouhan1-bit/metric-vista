@@ -725,7 +725,23 @@
         const sample = combinedRows.slice(0, 300);
         return sample.filter(r => r[h] !== "" && !isNaN(Number(String(r[h]).replace(/[₹$€£,%\\s]/g, "")))).length > sample.length * 0.4;
       });
-      const catCols = nonBlankHeaders.filter(h => !numCols.includes(h) && !/date|id$/i.test(h));
+      const isTimeLikeCol = (h) => {
+        if (/time|clock|hour|timestamp|minute|second|order_id|invoice|txn|phone|zip|pin/i.test(h)) return true;
+        const samp = combinedRows.slice(0, 40).map(r => String(r[h] || "").trim()).filter(Boolean);
+        if (!samp.length) return false;
+        const timeHits = samp.filter(v => /^\d{1,2}:\d{2}(\s*(am|pm))?$/i.test(v)).length;
+        return timeHits > samp.length * 0.4;
+      };
+      const rawCatCols = nonBlankHeaders.filter(h => !numCols.includes(h) && !/date|id$/i.test(h) && !isTimeLikeCol(h));
+      const dimPriority = (h) => {
+        if (/region|zone|territory|market|area/i.test(h)) return 1;
+        if (/category|segment|department|dept|channel/i.test(h)) return 2;
+        if (/product|item|sku|brand|service/i.test(h)) return 3;
+        if (/city|state|country|branch|store|warehouse/i.test(h)) return 4;
+        if (/rep|salesperson|agent|manager|customer|client|name|supplier/i.test(h)) return 5;
+        return 10;
+      };
+      const catCols = [...rawCatCols].sort((a, b) => dimPriority(a) - dimPriority(b));
       const dateCol = nonBlankHeaders.find(h => /date|month|period/i.test(h)) || null;
 
       // Normalize case on text columns (fixes 'James' vs 'james', 'MATT' vs 'Matt'!) & clean numbers
@@ -981,67 +997,165 @@
       requestAnimationFrame(drawBezierCurves);
     }
 
-    // SMART, CONVERSATIONAL, PLAIN-ENGLISH Q&A (Zero Raw JSON, Answers Product + Data + Improvement Questions!)
-    function runSmartAsk() {
-      const rawQ = document.getElementById("ask-input").value.trim();
-      if (!rawQ) return;
-      const q = rawQ.toLowerCase();
-      const p = getUnifiedPayload();
-      const top5 = p.primaryBd.slice(0, 5);
-      const bot5 = [...p.primaryBd].reverse().slice(0, 5);
-      const body = document.getElementById("insp-analysis-body");
-      window._customAnswerHtml = true;
+    // ==================== LIVE GEMINI Q&A + MULTI-COLUMN VALUE SCANNER ====================
+    function escHtml(s) {
+      return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
 
-      // 1. Product / Dynamic / How it works questions
-      if (/dynamic|update.*excel|excel.*update|live|refresh|real.?time|how.*work/.test(q)) {
-        body.innerHTML = `
-          <div class="text-white font-semibold">Yes — METRIC VISTA updates automatically whenever you upload a new Excel or CSV file.</div>
-          <div>Just click <strong>+ Upload CSV / Excel</strong> with your latest sheet and every chart, KPI, and ranking refreshes in seconds—removing blank columns, duplicates, and case mismatches automatically.</div>
-        `;
-        return;
+    function formatAiTextToHtml(txt) {
+      return escHtml(txt)
+        .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+        .replace(/\n- /g, '<br/>&bull; ')
+        .replace(/\n/g, '<br/>');
+    }
+
+    function buildLiveAskContext(rawQ, p) {
+      const qLower = rawQ.toLowerCase();
+      const overall_stats = {};
+      const matched_filters = [];
+      const dimension_breakdowns = {};
+
+      if (state.mode === "custom" && state.customModel) {
+        const cm = state.customModel;
+        const rows = (state.filterDim && state.filterVal !== "All")
+          ? cm.rows.filter(r => String(r[state.filterDim]) === state.filterVal)
+          : cm.rows;
+
+        // Overall stats for every numeric column
+        cm.numCols.slice(0, 10).forEach(nc => {
+          let s = 0, mn = Infinity, mx = -Infinity;
+          rows.forEach(r => {
+            const v = Number(r[nc]) || 0;
+            s += v; if (v < mn) mn = v; if (v > mx) mx = v;
+          });
+          overall_stats[nc] = {
+            sum: Math.round(s * 100) / 100,
+            avg: rows.length ? Math.round((s / rows.length) * 100) / 100 : 0,
+            min: isFinite(mn) ? mn : 0,
+            max: isFinite(mx) ? mx : 0
+          };
+        });
+
+        // Grouped breakdowns across up to 6 key categorical columns
+        cm.catCols.slice(0, 6).forEach(cc => {
+          const m = new Map();
+          const cnt = new Map();
+          rows.forEach(r => {
+            const k = String(r[cc] || "Unknown");
+            m.set(k, (m.get(k) || 0) + (Number(r[cm.m1]) || 0));
+            cnt.set(k, (cnt.get(k) || 0) + 1);
+          });
+          const sorted = [...m.entries()].sort((a, b) => b[1] - a[1]);
+          dimension_breakdowns[cc] = {
+            metric: cm.m1,
+            top: sorted.slice(0, 8).map(([k, v]) => ({ value: k, total: Math.round(v * 100) / 100, rows: cnt.get(k) })),
+            bottom: sorted.slice(-3).reverse().map(([k, v]) => ({ value: k, total: Math.round(v * 100) / 100, rows: cnt.get(k) }))
+          };
+
+          // Scan every distinct value in this column to see if the user mentioned it in their question (e.g. "west", "laptop")
+          for (const [val] of sorted) {
+            const vl = val.toLowerCase().trim();
+            if (vl.length < 2 || vl === "unknown") continue;
+            const re = new RegExp("\\b" + vl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
+            if (re.test(qLower)) {
+              const subRows = rows.filter(r => String(r[cc] || "").toLowerCase().trim() === vl);
+              const totals = {};
+              cm.numCols.slice(0, 8).forEach(nc => {
+                totals[nc] = Math.round(subRows.reduce((a, r) => a + (Number(r[nc]) || 0), 0) * 100) / 100;
+              });
+              matched_filters.push({ column: cc, matched_value: val, matching_rows: subRows.length, column_totals: totals });
+            }
+          }
+        });
+
+        return {
+          question: rawQ,
+          dataset_name: cm.title,
+          row_count: rows.length,
+          columns: cm.headers,
+          overall_stats,
+          matched_filters,
+          dimension_breakdowns,
+          cleaning_stats: cm.stats
+        };
       }
 
-      // 2. What to improve / problems / fixes
+      // Sample dataset context
+      (p.kpis || []).forEach(k => { overall_stats[k.name] = k.formatted_value; });
+      dimension_breakdowns.primary = (p.primaryBd || []).slice(0, 10);
+      dimension_breakdowns.secondary = (p.secondaryBd || []).slice(0, 10);
+      [...(p.primaryBd || []), ...(p.secondaryBd || [])].forEach(item => {
+        const vl = String(item.name || "").toLowerCase().trim();
+        if (vl.length >= 2 && new RegExp("\\b" + vl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(qLower)) {
+          matched_filters.push({ matched_value: item.name, total: item.value });
+        }
+      });
+      return {
+        question: rawQ,
+        dataset_name: p.label,
+        row_count: p.rowsEvaluated,
+        columns: p.cols,
+        overall_stats,
+        matched_filters,
+        dimension_breakdowns,
+        cleaning_stats: p.stats
+      };
+    }
+
+    function buildOfflineFallbackAnswer(rawQ, p, ctx) {
+      const q = rawQ.toLowerCase();
+      // 1. Exact matched filter (e.g. "what is the amount of sales in west?")
+      if (ctx.matched_filters && ctx.matched_filters.length > 0) {
+        const mf = ctx.matched_filters[0];
+        if (mf.column_totals) {
+          const pairs = Object.entries(mf.column_totals).slice(0, 4).map(([k, v]) => `<strong>${k}:</strong> ${Number(v).toLocaleString("en-IN", { maximumFractionDigits: 2 })}`).join(" &middot; ");
+          return `<div class="text-white font-semibold">Exact result for <strong>${escHtml(mf.matched_value)}</strong> (${escHtml(mf.column)}, ${mf.matching_rows.toLocaleString("en-IN")} rows):</div><div>${pairs}</div>`;
+        }
+        return `<div class="text-white font-semibold">Exact result for <strong>${escHtml(mf.matched_value)}</strong>: ${Number(mf.total || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</div>`;
+      }
+      if (/dynamic|update.*excel|excel.*update|live|refresh|real.?time|how.*work/.test(q)) {
+        return `<div class="text-white font-semibold">Yes &mdash; METRIC VISTA updates automatically whenever you upload a new Excel or CSV file.</div><div>Click <strong>+ Upload CSV / Excel</strong> with your latest sheet and every chart, KPI, and ranking refreshes automatically.</div>`;
+      }
+      const top5 = p.primaryBd.slice(0, 5), bot5 = [...p.primaryBd].reverse().slice(0, 5);
       if (/improv|fix|problem|weak|bad|worst|low|bottom|help|solution|suggest/.test(q)) {
         const weak = bot5.slice(0, 3).map(x => `<strong>${x.name}</strong> (${Number(x.value).toLocaleString("en-IN")})`).join(", ");
-        const leader = top5[0];
-        body.innerHTML = `
-          <div class="text-white font-semibold">Here are the clearest areas to improve right now:</div>
-          <div>1. <strong>Support trailing performers:</strong> ${weak || "Lower segments"} are well behind leader <strong>${leader?.name || "—"}</strong> (${Number(leader?.value || 0).toLocaleString("en-IN")}). Study what is working for ${leader?.name || "your leader"} and apply it there.</div>
-          <div>2. <strong>Keep your data clean:</strong> We already merged ${p.stats.caseFixed} inconsistent name spellings and fixed ${p.stats.nullsFixed} blank cells so your totals are trustworthy.</div>
-        `;
-        return;
+        return `<div class="text-white font-semibold">Key areas to improve right now:</div><div><strong>Trailing groups:</strong> ${weak || "Lower segments"} sit behind leader <strong>${top5[0]?.name || "—"}</strong> (${Number(top5[0]?.value || 0).toLocaleString("en-IN")}).</div>`;
+      }
+      return `<div class="text-white font-semibold">${p.kpis[0]?.name}: ${p.kpis[0]?.formatted_value} &middot; ${p.kpis[1]?.name}: ${p.kpis[1]?.formatted_value}</div><div><strong>${top5[0]?.name || "—"}</strong> leads at ${Number(top5[0]?.value || 0).toLocaleString("en-IN")}, while <strong>${bot5[0]?.name || "—"}</strong> is lowest at ${Number(bot5[0]?.value || 0).toLocaleString("en-IN")}.</div>`;
+    }
+
+    async function runSmartAsk() {
+      const rawQ = document.getElementById("ask-input").value.trim();
+      if (!rawQ) return;
+      const p = getUnifiedPayload();
+      const body = document.getElementById("insp-analysis-body");
+      const tag = document.getElementById("ans-tag");
+      window._customAnswerHtml = true;
+
+      const ctx = buildLiveAskContext(rawQ, p);
+      tag.textContent = "Thinking...";
+      body.innerHTML = `<div class="text-cyan-300 animate-pulse">Analyzing your dataset with Gemini...</div>`;
+
+      try {
+        const resp = await fetch("/api/v1/ask-live", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(ctx)
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.answer) {
+            tag.textContent = "Gemini Live";
+            body.innerHTML = `<div class="space-y-1.5">${formatAiTextToHtml(data.answer)}</div>`;
+            return;
+          }
+        }
+      } catch (_err) {
+        // Offline / Canvas preview fallback
       }
 
-      // 3. Top / best / praise
-      if (/top|best|highest|leader|good|well|praise|win|strong/.test(q)) {
-        const leaders = top5.slice(0, 4).map(x => `<strong>${x.name}</strong> (${Number(x.value).toLocaleString("en-IN")})`).join(", ");
-        body.innerHTML = `
-          <div class="text-emerald-300 font-semibold">Strong performance across your top group!</div>
-          <div>Your leading performers are ${leaders}. Overall ${p.kpis[0]?.name} stands at <strong>${p.kpis[0]?.formatted_value}</strong> with a <strong>${p.qualityScore}%</strong> data cleanliness score.</div>
-        `;
-        return;
-      }
-
-      // 4. Cleaning / quality / what columns exist / selling
-      if (/clean|quality|null|blank|duplicat|column|sell|about|what.*data/.test(q)) {
-        body.innerHTML = `
-          <div class="text-white font-semibold">Your spreadsheet tracks ${p.cols.length} clean columns across ${p.rowsEvaluated.toLocaleString("en-IN")} rows.</div>
-          <div>Columns found: <strong>${p.cols.slice(0, 8).join(", ")}</strong>. During upload we fixed ${p.stats.nullsFixed} blank cells, aligned ${p.stats.caseFixed} case mismatches, and removed ${p.stats.dupsRemoved} duplicates (Quality: <strong>${p.qualityScore}%</strong>).</div>
-        `;
-        return;
-      }
-
-      // 5. General / Mismatched question self-correction
-      const mismatch = ["profit", "salary", "inventory", "budget"].find(w => q.includes(w) && !p.cols.some(c => c.toLowerCase().includes(w)));
-      const note = mismatch
-        ? `<div class="text-[#E6C78B]">Note: Your file doesn't have a <em>${mismatch}</em> column—it tracks <strong>${p.cols.slice(0, 5).join(", ")}</strong>. Here is the closest answer from your real numbers:</div>`
-        : "";
-      body.innerHTML = `
-        ${note}
-        <div class="text-white font-semibold">${p.kpis[0]?.name}: ${p.kpis[0]?.formatted_value} · ${p.kpis[1]?.name}: ${p.kpis[1]?.formatted_value}</div>
-        <div><strong>${top5[0]?.name || "—"}</strong> is ahead at ${Number(top5[0]?.value || 0).toLocaleString("en-IN")}, while <strong>${bot5[0]?.name || "—"}</strong> is lowest at ${Number(bot5[0]?.value || 0).toLocaleString("en-IN")}.</div>
-      `;
+      tag.textContent = "Verified Data";
+      body.innerHTML = buildOfflineFallbackAnswer(rawQ, p, ctx);
     }
 
     // ==================== ANTI-OVERLAP CHART HELPERS ====================
